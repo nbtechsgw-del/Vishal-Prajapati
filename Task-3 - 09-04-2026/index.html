@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vishal Prajapati | Portfolio</title>
+
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet">
+    </head>
+
+    <body>
+
+        <header>
+            <nav class="container nav">
+                <img src="./logo.png" class="logo">
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+                <div class="contact-info">
+                    <a href="tel:9518780609">📞</a>
+                    <a href="mailto:vishal212121prajapati@gmail.com">✉️</a>
+                </div>
+
+                <button class="menu-toggle" id="menuToggle">☰</button>
+            </nav>
+        </header>
+
+        <section class="hero container" id="about">
+            <div class="hero-content">
+                <img src="./Vishal.png" class="profile-img">
+
+                <div>
+                    <h1>Hi, I'm <span>Vishal Prajapati</span></h1>
+                    <p class="tagline">Full Stack Developer (MERN + Python)</p>
+
+                    <button class="btn" id="aboutBtn">About Me</button>
+
+                    <p id="moreText" class="hidden">
+                        I am a passionate Full Stack Developer skilled in MERN stack and Python frameworks like Django &
+                        Flask.
+                        I love building scalable, modern and user-friendly applications.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="container">
+            <h2>Skills</h2>
+            <div class="skills">
+                <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                <span>React</span><span>Tailwind</span>
+                <span>Python</span><span>Django</span><span>Flask</span>
+                <span>Java</span><span>C</span><span>C++</span>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2>Projects</h2>
+
+            <div class="projects">
+                <div class="card">
+                    <h3>Notes App</h3>
+                    <p>Modern note-taking app</p>
+                    <a href="https://vishal-cos-notes-app.netlify.app/" target="_blank">Live Demo</a>
+                </div>
+
+                <div class="card">
+                    <h3>Smartphone Store</h3>
+                    <p>E-commerce UI design</p>
+                    <a href="https://vishal-cos-smartphone-store-ui.netlify.app/" target="_blank">Live Demo</a>
+                </div>
+
+                <div class="card">
+                    <h3>Snake Game</h3>
+                    <p>Classic JavaScript game</p>
+                    <a href="https://vishal-cos-snakegame.netlify.app/" target="_blank">Live Demo</a>
+                </div>
+
+                <div class="card">
+                    <h3>Language Search</h3>
+                    <p>Search tool</p>
+                    <a href="https://vishal-cos-language-search.netlify.app/" target="_blank">Live Demo</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>Education</h2>
+
+            <table>
+                <tr>
+                    <th>Course</th>
+                    <th>Year</th>
+                    <th>Institute</th>
+                </tr>
+                <tr>
+                    <td>B.Tech (CSE)</td>
+                    <td>2023 - Current</td>
+                    <td>Oriental University</td>
+                </tr>
+                <tr>
+                    <td>Senior Secondary</td>
+                    <td>2022 - 2023</td>
+                    <td>Pune</td>
+                </tr>
+                <tr>
+                    <td>Higher Secondary</td>
+                    <td>2020 - 2021</td>
+                    <td>Pune</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="contact" class="container">
+            <h2>Contact</h2>
+
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Name">
+                <input type="email" id="email" placeholder="Email">
+                <textarea id="message" placeholder="Message"></textarea>
+                <button class="btn" type="submit">Send Message</button>
+            </form>
+        </section>
+
+        <footer>
+            <p>© 2026 Vishal Prajapati</p>
+            <button class="btn" id="themeBtn">Toggle Theme</button>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
