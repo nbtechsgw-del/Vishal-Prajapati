@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Registration Form</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet">
+
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body>
+
+        <form id="myForm">
+            <h2>User Registration</h2>
+
+            <label for="username">Name</label>
+            <input type="text" id="username" name="username" placeholder="Your name..." required>
+
+            <label for="useremail">Email</label>
+            <input type="email" id="useremail" name="useremail" placeholder="Your email..." required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Your password" required minlength="6">
+
+            <label for="cpassword">Confirm Password</label>
+            <input type="password" id="cpassword" name="cpassword" placeholder="Confirm password" required>
+            <span id="errorcpass"></span><br>
+
+            <input type="checkbox" id="togglePass"> Show Password
+
+            <label>Gender</label>
+            <div class="gender-group">
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+
+                <input type="radio" id="other" name="gender" value="other">
+                <label for="other">Other</label>
+            </div>
+            <span class="error" id="genderError"></span>
+
+            <label>Skills</label>
+            <div class="skills-group">
+                <input type="checkbox" id="html" name="skills" value="HTML">
+                <label for="html">HTML</label>
+
+                <input type="checkbox" id="css" name="skills" value="CSS">
+                <label for="css">CSS</label>
+
+                <input type="checkbox" id="js" name="skills" value="JS">
+                <label for="js">JS</label>
+            </div>
+            <span class="error" id="skillError"></span>
+
+            <label for="upload">Profile Image</label>
+            <input type="file" id="upload" name="upload" required>
+
+            <input type="submit" value="Register">
+
+            <p id="successMsg" style="text-align: center; color: rgb(2, 255, 2);"></p>
+        </form>
+
+        <script src="./script.js"></script>
+
+    </body>
+
+</html>
