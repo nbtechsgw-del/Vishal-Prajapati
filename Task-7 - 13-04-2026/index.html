@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Management System</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div class="card">
+
+                <h2>Student Management</h2>
+
+                <div class="section">
+                    <h3>Add Student</h3>
+
+                    <form id="studentForm">
+                        <input type="text" id="name" placeholder="Student Name" required>
+                        <input type="number" id="id" placeholder="Student ID" required>
+                        <input type="number" id="marks" placeholder="Marks" required>
+
+                        <button type="submit" class="primary">Add Student</button>
+                    </form>
+                </div>
+
+                <div class="section">
+                    <h3>Actions</h3>
+
+                    <button id="displayBtn">Show All Students</button>
+
+                    <div class="search-box">
+                        <input type="number" id="searchId" placeholder="Search by ID">
+                        <button id="searchBtn">Search</button>
+                    </div>
+
+                    <button id="avgBtn" class="secondary">Calculate Average</button>
+                </div>
+
+                <div class="section">
+                    <h3>Output</h3>
+                    <div id="output" class="output">
+                        No data yet...
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
