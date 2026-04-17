@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Banking System</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body
+        class="min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-black via-zinc-900 to-black overflow-hidden">
+
+        <div
+            class="absolute w-[500px] h-[500px] bg-green-500 opacity-20 blur-[120px] rounded-full top-[-100px] left-[-100px]">
+        </div>
+        <div
+            class="absolute w-[400px] h-[400px] bg-blue-500 opacity-20 blur-[120px] rounded-full bottom-[-100px] right-[-100px]">
+        </div>
+
+        <!-- Main Container -->
+        <div
+            class="relative w-full max-w-md p-6 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(0,255,150,0.1)]">
+
+            <!-- ================= AUTH SECTION ================= -->
+            <div id="authSection">
+
+                <div class="text-center mb-6">
+                    <h1 class="text-3xl font-bold tracking-wide">🏦 My Bank</h1>
+                    <p class="text-gray-400 text-sm">Secure Login & Registration</p>
+                </div>
+
+                <!-- Toggle Buttons -->
+                <div class="flex mb-4 bg-zinc-800 rounded-xl overflow-hidden">
+                    <button id="showLogin" class="w-1/2 py-2 bg-green-500 font-semibold transition">Login</button>
+                    <button id="showRegister"
+                        class="w-1/2 py-2 font-semibold transition hover:bg-zinc-700">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <input id="loginEmail" type="email" placeholder="Email"
+                        class="w-full mb-3 px-4 py-2 bg-zinc-800 rounded-lg border border-zinc-700 focus:ring-2 focus:ring-green-400 outline-none transition" />
+
+                    <input id="loginPassword" type="password" placeholder="Password"
+                        class="w-full mb-3 px-4 py-2 bg-zinc-800 rounded-lg border border-zinc-700 focus:ring-2 focus:ring-green-400 outline-none transition" />
+
+                    <button id="loginBtn"
+                        class="w-full py-2 bg-blue-500 rounded-lg hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30 active:scale-95 transition">
+                        Login
+                    </button>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="registerForm" class="hidden">
+                    <input id="regName" type="text" placeholder="Full Name"
+                        class="w-full mb-3 px-4 py-2 bg-zinc-800 rounded-lg border border-zinc-700 focus:ring-2 focus:ring-blue-400 outline-none transition" />
+
+                    <input id="regEmail" type="email" placeholder="Email"
+                        class="w-full mb-3 px-4 py-2 bg-zinc-800 rounded-lg border border-zinc-700 focus:ring-2 focus:ring-blue-400 outline-none transition" />
+
+                    <input id="regPassword" type="password" placeholder="Password"
+                        class="w-full mb-3 px-4 py-2 bg-zinc-800 rounded-lg border border-zinc-700 focus:ring-2 focus:ring-blue-400 outline-none transition" />
+
+                    <button id="registerBtn"
+                        class="w-full py-2 bg-blue-500 rounded-lg hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 transition">
+                        Create Account
+                    </button>
+                </div>
+
+                <p id="authMessage" class="text-center text-sm mt-3 text-gray-400"></p>
+
+            </div>
+
+            <!-- ================= DASHBOARD ================= -->
+            <div id="dashboard" class="hidden">
+
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-lg sm:text-xl font-bold">
+                        🏦 Welcome, <span id="username" class="text-green-400"></span>
+                    </h1>
+                    <button id="logoutBtn" class="text-sm text-red-400 hover:text-red-300 transition">
+                        Logout
+                    </button>
+                </div>
+
+                <!-- Balance Card -->
+                <div
+                    class="bg-gradient-to-r from-green-400/20 to-emerald-500/20 p-6 rounded-2xl text-center border border-green-400/20 mb-6">
+                    <p class="text-sm text-gray-300">Current Balance</p>
+                    <h2 id="balance"
+                        class="text-3xl sm:text-4xl font-bold mt-2 tracking-wide transition-all duration-300">
+                        ₹0
+                    </h2>
+                </div>
+
+                <!-- Input -->
+                <input id="amount" type="number" placeholder="Enter amount..."
+                    class="w-full mb-4 px-4 py-3 bg-zinc-800 rounded-xl border border-zinc-700 focus:ring-2 focus:ring-green-400 outline-none transition" />
+
+                <!-- Buttons -->
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button id="depositBtn"
+                        class="py-3 bg-green-500 rounded-xl hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30 active:scale-95 transition disabled:opacity-50">
+                        💰 Deposit
+                    </button>
+
+                    <button id="withdrawBtn"
+                        class="py-3 bg-red-500 rounded-xl hover:bg-red-600 hover:shadow-lg hover:shadow-red-500/30 active:scale-95 transition disabled:opacity-50">
+                        💸 Withdraw
+                    </button>
+                </div>
+
+                <!-- Messages -->
+                <p id="message" class="text-center text-sm mb-4"></p>
+
+                <!-- Transaction History -->
+                <div class="bg-white/5 p-4 rounded-xl border border-white/10 max-h-44 overflow-y-auto">
+                    <h3 class="text-sm text-gray-400 mb-2">Transactions</h3>
+
+                    <div id="emptyState" class="text-gray-500 text-xs text-center">
+                        No transactions yet...
+                    </div>
+
+                    <ul id="history" class="space-y-2 text-sm"></ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,50 @@
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #22c55e, #10b981);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #16a34a, #059669);
+}
+
+input:focus {
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+button,
+input {
+    transition: all 0.25s ease;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+#dashboard,
+#authSection {
+    transition: all 0.4s ease;
+}
+
+#message {
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 400px) {
+    .max-w-md {
+        padding: 1rem;
+    }
+}
