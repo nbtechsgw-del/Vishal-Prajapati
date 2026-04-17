@@ -1,0 +1,193 @@
+🚀 PHASE 1: Project Setup
+
+Step 1: Initialize project
+mkdir attendance-api
+cd attendance-api
+npm init -y
+
+Step 2: Install dependencies
+npm install express mongoose dotenv bcryptjs jsonwebtoken cors
+npm install nodemon --save-dev
+
+Step 3: Folder Structure (VERY IMPORTANT)
+
+Create this structure:
+
+attendance-api/
+│
+├── config/
+│   └── db.js
+│
+├── models/
+│   ├── User.js
+│   ├── Attendance.js
+│   └── Leave.js
+│
+├── controllers/
+│   ├── authController.js
+│   ├── attendanceController.js
+│   └── leaveController.js
+│
+├── routes/
+│   ├── authRoutes.js
+│   ├── attendanceRoutes.js
+│   └── leaveRoutes.js
+│
+├── middleware/
+│   ├── authMiddleware.js
+│   └── roleMiddleware.js
+│
+├── utils/
+│   └── timeHelper.js
+│
+├── .env
+├── server.js
+└── package.json
+
+👉 This is how real backend projects are structured.
+
+⚙️ PHASE 2: Basic Server + DB
+
+Step 4: Setup Express server (server.js)
+Initialize Express
+Use JSON middleware
+Setup routes
+
+Step 5: Connect MongoDB (config/db.js)
+
+Use mongoose:
+
+mongoose.connect(process.env.MONGO_URI)
+
+Step 6: Setup .env
+PORT=5000
+MONGO_URI=your_mongodb_url
+JWT_SECRET=supersecret
+
+🔐 PHASE 3: Authentication System
+
+Step 7: Create User Model
+
+Fields:
+
+name
+email
+password
+role (admin / employee)
+
+Step 8: Auth APIs
+
+✅ Register
+Hash password using bcryptjs
+
+✅ Login
+Check email/password
+Generate JWT
+
+Step 9: Auth Middleware
+Verify token
+Attach user to request
+
+Step 10: Role Middleware
+
+if (user.role !== "admin") {
+  return res.status(403)
+}
+
+⏰ PHASE 4: Attendance System (CORE)
+
+Step 11: Attendance Model
+{
+  userId,
+  date,
+  checkIn,
+  checkOut,
+  workingHours
+}
+
+Step 12: Check-in API
+
+Logic:
+
+Get today’s date
+Check if record exists ❌
+If yes → reject
+Else → create new attendance
+
+Step 13: Check-out API
+
+Logic:
+
+Find today’s attendance
+If not found → error
+If already checked out → reject
+Else:
+Set checkOut
+Calculate working hours
+
+Step 14: Time Calculation (IMPORTANT)
+
+In utils/timeHelper.js:
+
+const diff = (checkout - checkin) / (1000 * 60 * 60);
+
+🌴 PHASE 5: Leave System
+
+Step 15: Leave Model
+{
+  userId,
+  fromDate,
+  toDate,
+  reason,
+  status: "pending"
+}
+
+Step 16: Apply Leave API
+Employee submits request
+Default status = pending
+
+Step 17: Admin Approve/Reject
+
+Routes:
+
+PUT /leave/:id/approve
+PUT /leave/:id/reject
+
+👨‍💼 PHASE 6: Admin Features
+
+Step 18: View All Attendance
+Admin only
+
+Step 19: View Leave Requests
+Admin only
+
+🧠 PHASE 7: Real Challenges (IMPORTANT)
+
+You MUST handle:
+
+❌ Prevent multiple check-ins
+date: { $eq: today }
+
+⏳ Accurate working hours
+Use timestamps
+Convert to hours properly
+
+📅 Date handling
+Always store date in ISO format
+
+Compare using:
+new Date().toISOString().split("T")[0]
+
+🧪 PHASE 8: Testing
+
+Use:
+
+Postman OR Thunder Client
+
+Test all:
+
+Register
+Login
+Check-in/out
+Leave apply
+Admin actions
