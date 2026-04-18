@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: #fff;
+    padding: 20px;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+        url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    animation: fadeInDown 0.7s ease;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+    animation: fadeInUp 0.6s ease;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+    border: 1px solid #00f2fe;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.02);
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+tr {
+    transition: 0.3s;
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.status-available {
+    color: #00ff9d;
+    font-weight: bold;
+}
+
+.status-issued {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.status-overdue {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 22px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    th,
+    td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
