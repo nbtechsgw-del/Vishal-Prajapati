@@ -7,6 +7,7 @@ const cors = require("cors");
 const { connectDB, sequelize } = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
+const leaveRoutes = require("./routes/leaveRoutes");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/leave", leaveRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
