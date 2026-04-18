@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: "mysql",
     logging: false,
-  }
+  },
 );
 
 const connectDB = async () => {
@@ -23,6 +23,5 @@ const connectDB = async () => {
 
 console.log("DB_USER:", process.env.DB_USER);
 console.log("DB_NAME:", process.env.DB_NAME);
-console.log("ENV TEST:", process.env.DB_USER);
 
 module.exports = { sequelize, connectDB };
