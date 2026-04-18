@@ -153,7 +153,7 @@ Routes:
 PUT /leave/:id/approve
 PUT /leave/:id/reject
 
-👨‍💼 PHASE 6: Admin Features
+👨‍💼 PHASE 6: Admin Fea tures
 
 Step 18: View All Attendance
 Admin only

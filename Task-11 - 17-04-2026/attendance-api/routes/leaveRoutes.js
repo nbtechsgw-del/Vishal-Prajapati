@@ -30,4 +30,11 @@ router.put(
   leaveController.rejectLeave,
 );
 
+router.get(
+  "/filter",
+  authMiddleware,
+  roleMiddleware(["admin"]),
+  leaveController.filterLeaves,
+);
+
 module.exports = router;

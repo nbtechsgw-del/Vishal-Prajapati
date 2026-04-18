@@ -63,3 +63,22 @@ exports.checkOut = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.monthlyReport = async (req, res) => {
+  try {
+    const { userId, month } = req.query;
+
+    const records = await Attendance.findAll({
+      where: {
+        userId,
+        date: {
+          [require("sequelize").Op.like]: `${month}%`,
+        },
+      },
+    });
+
+    res.json(records);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

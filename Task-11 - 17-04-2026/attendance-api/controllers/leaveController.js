@@ -76,3 +76,17 @@ exports.rejectLeave = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.filterLeaves = async (req, res) => {
+  try {
+    const { status } = req.query;
+
+    const leaves = await Leave.findAll({
+      where: status ? { status } : {},
+    });
+
+    res.json(leaves);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
