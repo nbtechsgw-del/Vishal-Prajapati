@@ -1,6 +1,6 @@
-const User = require("./User");
-const Property = require("./Property");
-const Booking = require("./Booking");
+import User from "./User.js";
+import Property from "./Property.js";
+import Booking from "./Booking.js";
 
 User.hasMany(Property, { foreignKey: "agentId" });
 Property.belongsTo(User, { foreignKey: "agentId" });
@@ -11,4 +11,4 @@ Property.hasMany(Booking, { foreignKey: "propertyId" });
 Booking.belongsTo(User, { foreignKey: "userId" });
 Booking.belongsTo(Property, { foreignKey: "propertyId" });
 
-module.exports = { User, Booking, Property };
+export { User, Property, Booking };

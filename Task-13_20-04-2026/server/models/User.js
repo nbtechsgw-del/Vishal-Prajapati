@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
 
 const User = sequelize.define("User", {
   name: {
@@ -8,10 +8,15 @@ const User = sequelize.define("User", {
   },
   email: {
     type: DataTypes.STRING,
+    allowNull: false,
     unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   password: {
     type: DataTypes.STRING,
+    allowNull: false,
   },
   role: {
     type: DataTypes.ENUM("user", "agent"),
@@ -19,4 +24,4 @@ const User = sequelize.define("User", {
   },
 });
 
-module.exports = User;
+export default User;

@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db.js";
 
 const Property = sequelize.define("Property", {
   title: DataTypes.STRING,
@@ -12,4 +12,4 @@ const Property = sequelize.define("Property", {
   description: DataTypes.TEXT,
 });
 
-module.exports = Property;
+export default Property;
