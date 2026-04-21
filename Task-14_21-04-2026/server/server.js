@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import sequelize from "./config/db.js";
 import { User, Booking, Property } from "./models/index.js";
-import authRoutes from "./routes/authRoutes.js";
+import propertyRoutes from "./routes/propertyRoutes.js";
 
 dotenv.config();
 
@@ -12,6 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/properties", propertyRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");
