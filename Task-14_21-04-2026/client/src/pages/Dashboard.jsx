@@ -16,8 +16,10 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    fetchProperties();
-  }, []);
+    if (token) {
+      fetchProperties();
+    }
+  }, [token]);
 
   const handleDelete = async (id) => {
     await API.delete(`/properties/${id}`);

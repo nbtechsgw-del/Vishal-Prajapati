@@ -9,8 +9,15 @@ function Register() {
   });
 
   const handleRegister = async () => {
-    await API.post("/auth/register", form);
-    alert("Registered Successfully");
+    try {
+      const res = await API.post("/auth/register", form);
+      console.log(res.data);
+      alert("Registered Successfully");
+    } catch (err) {
+      console.log("FULL ERROR:", err);
+      console.log("RESPONSE:", err.response?.data);
+      alert(err.response?.data?.message || "Registration failed");
+    }
   };
 
   return (
