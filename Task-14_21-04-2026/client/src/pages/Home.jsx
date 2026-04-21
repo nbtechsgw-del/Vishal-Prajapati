@@ -31,28 +31,30 @@ function Home() {
 
   return (
     <div>
-      <div className="hero">
-        <div className="hero-content">
-          <h1>Find Your Dream Home</h1>
+      <div className="container">
+        <div className="hero">
+          <div className="hero-content">
+            <h1>Find Your Dream Home</h1>
 
-          <div className="search-box">
-            <input
-              type="text"
-              placeholder="Search location..."
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Search location..."
+                onChange={(e) => setSearch(e.target.value)}
+              />
 
-            <button onClick={handleSearch}>Search</button>
+              <button onClick={handleSearch}>Search</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="property-grid">
-        {properties.length === 0 && <h3>No properties found</h3>}
+        <div className="property-grid">
+          {properties.length === 0 && <h3>No properties found</h3>}
 
-        {properties.map((p) => (
-          <PropertyCard key={p.id} property={p} />
-        ))}
+          {properties.map((p) => (
+            <PropertyCard key={p.id} property={p} />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -34,19 +34,21 @@ function PropertyDetails() {
 
   return (
     <div>
-      <img src={property.image} width="400" />
+      <div className="container">
+        <img src={property.image} width="400" />
 
-      <h1>{property.title}</h1>
-      <p>{property.location}</p>
-      <h2>₹{property.price}</h2>
+        <h1>{property.title}</h1>
+        <p>{property.location}</p>
+        <h2>₹{property.price}</h2>
 
-      <p>{property.description}</p>
+        <p>{property.description}</p>
 
-      <input type="date" onChange={(e) => setDate(e.target.value)} />
+        <input type="date" onChange={(e) => setDate(e.target.value)} />
 
-      <button onClick={handleBooking}>Book Now</button>
+        <button onClick={handleBooking}>Book Now</button>
 
-      {message && <p>{message}</p>}
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 }
