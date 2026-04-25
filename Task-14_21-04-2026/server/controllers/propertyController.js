@@ -25,7 +25,10 @@ export const createProperty = async (req, res) => {
 
 export const getProperties = async (req, res) => {
   try {
-    const properties = await Property.findAll();
+    const properties = await Property.findAll({
+      where: { agentId: req.user.id },
+    });
+
     res.json(properties);
   } catch (error) {
     res.status(500).json({ message: error.message });

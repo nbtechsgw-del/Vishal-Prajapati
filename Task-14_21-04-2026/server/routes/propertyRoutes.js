@@ -17,5 +17,6 @@ router.get("/:id", getPropertyById);
 router.post("/", protect, isAgent, createProperty);
 router.put("/:id", protect, isAgent, updateProperty);
 router.delete("/:id", protect, isAgent, deleteProperty);
+router.get("/my", protect, isAgent, getProperties);
 
 export default router;

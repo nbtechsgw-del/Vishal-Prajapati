@@ -17,7 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/add-property" element={<AddProperty />} />
-        <Route path="/edit/:id" element={<EditProperty />} />;
+        <Route path="/edit/:id" element={<EditProperty />} />
       </Routes>
     </BrowserRouter>
   );

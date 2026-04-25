@@ -12,7 +12,6 @@ toggle.addEventListener("click", () => {
 });
 
 const propertyGrid = document.getElementById("property-grid");
-
 let properties = [
   {
     title: "Modern Family House",
