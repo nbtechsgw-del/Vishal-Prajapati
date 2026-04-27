@@ -1,0 +1,70 @@
+[
+  {
+    "question": "hi",
+    "answer": "Hello! How can I help you today?"
+  },
+  {
+    "question": "hello",
+    "answer": "Hi there! What can I do for you?"
+  },
+  {
+    "question": "what is your name",
+    "answer": "I am a chatbot here to help you with your questions."
+  },
+  {
+    "question": "who are you",
+    "answer": "I’m a virtual assistant designed to assist you."
+  },
+  {
+    "question": "can you help me",
+    "answer": "Yes, of course! Tell me what you need help with."
+  },
+  {
+    "question": "how does this work",
+    "answer": "You just type your question and I will try to answer it."
+  },
+  {
+    "question": "i need help",
+    "answer": "Sure, I’m here to help. What do you need assistance with?"
+  },
+  {
+    "question": "what can you do",
+    "answer": "I can answer questions, guide you, and help you find information."
+  },
+  {
+    "question": "are you a real person",
+    "answer": "No, I am an AI chatbot."
+  },
+  {
+    "question": "can you tell jokes",
+    "answer": "Yes! Why did the developer go broke? Because he used up all his cache 😄"
+  },
+  {
+    "question": "help me with coding",
+    "answer": "Sure! Tell me what programming problem you're facing."
+  },
+  {
+    "question": "i am stuck",
+    "answer": "No problem, explain your issue and I’ll try to help."
+  },
+  {
+    "question": "what is javascript",
+    "answer": "JavaScript is a programming language used to build interactive websites."
+  },
+  {
+    "question": "how to learn programming",
+    "answer": "Start with basics like HTML, CSS, then move to JavaScript or Python."
+  },
+  {
+    "question": "bye",
+    "answer": "Goodbye! Have a great day 😊"
+  },
+  {
+    "question": "thank you",
+    "answer": "You're welcome!"
+  },
+  {
+    "question": "ok",
+    "answer": "Alright 👍 Let me know if you need anything else."
+  }
+]
