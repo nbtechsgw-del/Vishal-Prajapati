@@ -1,4 +1,4 @@
-export const BookCard = ({ book, onBorrowClick, onReturn, onDelete }) => {
+const BookCard = ({ book, onBorrowClick, onReturn, onDelete }) => {
   const isAvailable = book.status === "available";
 
   return (
@@ -36,3 +36,5 @@ export const BookCard = ({ book, onBorrowClick, onReturn, onDelete }) => {
     </div>
   );
 };
+
+export default BookCard;

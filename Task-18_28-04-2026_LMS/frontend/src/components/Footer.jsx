@@ -5,7 +5,7 @@ export const Footer = React.memo(() => {
 
   return (
     <footer className="footer">
-      <p>© {year} Library Management System. Built with ❤️ using MERN Stack</p>
+      <p>© {year} Library Management System. Built by Vishal ❤️ using MERN Stack</p>
     </footer>
   );
 });

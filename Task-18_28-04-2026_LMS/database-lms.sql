@@ -5,6 +5,4 @@ USE lms;
 
 SHOW TABLES;
 
-select * from users;
-
-desc users;
+SELECT * FROM users;

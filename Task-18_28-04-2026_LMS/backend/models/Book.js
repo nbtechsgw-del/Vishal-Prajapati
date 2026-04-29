@@ -24,6 +24,7 @@ const Book = sequelize.define(
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: "image_url",
     },
     status: {
       type: DataTypes.ENUM("available", "borrowed"),

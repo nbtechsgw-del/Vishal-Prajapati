@@ -17,6 +17,7 @@ export const Header = ({
             placeholder="Search by title or author..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
+            className="placeholder:text-gray-600"
           />
         </div>
         <nav>
