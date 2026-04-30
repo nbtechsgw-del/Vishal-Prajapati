@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
+import QuestionCard from "../components/QuestionCard";
+import Timer from "../components/Timer";
+import WarningModal from "../components/WarningModal";
 
 const ExamPage = () => {
   const { id } = useParams();
@@ -8,16 +11,20 @@ const ExamPage = () => {
 
   const [exam, setExam] = useState(null);
   const [answers, setAnswers] = useState({});
-  const [timeLeft, setTimeLeft] = useState(0);
   const [warnings, setWarnings] = useState(0);
+
+  const [showWarning, setShowWarning] = useState(false);
+  const [warningMsg, setWarningMsg] = useState("");
+  console.log(warnings);
 
   const fetchExam = async () => {
     try {
       const res = await API.get(`/exams/${id}`);
       setExam(res.data);
-      setTimeLeft(res.data.timeLimit * 60);
 
-      document.documentElement.requestFullscreen();
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }
     } catch (err) {
       console.log(err);
     }
@@ -28,29 +35,21 @@ const ExamPage = () => {
   }, []);
 
   useEffect(() => {
-    if (timeLeft <= 0) {
-      handleSubmit();
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeLeft]);
-
-  useEffect(() => {
     const handleVisibility = () => {
       if (document.hidden) {
-        setWarnings((prev) => prev + 1);
+        setWarnings((prev) => {
+          const newWarnings = prev + 1;
 
-        alert("⚠️ Warning: Do not switch tabs!");
+          setWarningMsg("Do not switch tabs during exam!");
+          setShowWarning(true);
 
-        if (warnings >= 1) {
-          alert("❌ Exam auto-submitted due to cheating!");
-          handleSubmit();
-        }
+          if (newWarnings >= 2) {
+            setWarningMsg("Exam auto-submitted due to cheating!");
+            handleSubmit();
+          }
+
+          return newWarnings;
+        });
       }
     };
 
@@ -58,13 +57,13 @@ const ExamPage = () => {
 
     return () =>
       document.removeEventListener("visibilitychange", handleVisibility);
-  }, [warnings]);
+  }, []);
 
   const handleChange = (questionId, selected) => {
-    setAnswers({
-      ...answers,
+    setAnswers((prev) => ({
+      ...prev,
       [questionId]: selected,
-    });
+    }));
   };
 
   const handleSubmit = async () => {
@@ -77,61 +76,49 @@ const ExamPage = () => {
       const res = await API.post("/results/submit", {
         examId: id,
         answers: formattedAnswers,
-        timeTaken: exam.timeLimit * 60 - timeLeft,
+        timeTaken: 0,
       });
 
-      alert(`Exam submitted! Score: ${res.data.score}`);
-      navigate("/student");
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+
+      setWarningMsg(`Exam submitted! Score: ${res.data.score}`);
+      setShowWarning(true);
+
+      setTimeout(() => {
+        navigate("/student");
+      }, 2000);
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (!exam)
+  if (!exam) {
     return (
       <div className="flex items-center justify-center min-h-screen text-gray-500">
         Loading exam...
       </div>
     );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="sticky top-0 z-10 bg-white shadow-sm border-b px-6 py-4 flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-800">{exam.title}</h2>
 
-        <div className="bg-red-100 text-red-600 px-4 py-2 rounded-lg font-semibold">
-          ⏱ {timeLeft} sec
-        </div>
+        <Timer seconds={exam.timeLimit * 60} onTimeUp={handleSubmit} />
       </div>
 
       <div className="max-w-3xl mx-auto p-6 space-y-6">
         {exam.Questions?.map((q, index) => (
-          <div
+          <QuestionCard
             key={q.id}
-            className="bg-white p-5 rounded-xl shadow-sm border hover:shadow-md transition"
-          >
-            <h4 className="font-semibold text-gray-800 mb-4">
-              {index + 1}. {q.question}
-            </h4>
-
-            <div className="space-y-2">
-              {["A", "B", "C", "D"].map((opt) => (
-                <label
-                  key={opt}
-                  className="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-gray-50"
-                >
-                  <input
-                    type="radio"
-                    name={q.id}
-                    value={opt}
-                    onChange={() => handleChange(q.id, opt)}
-                    className="accent-blue-600"
-                  />
-                  <span className="text-gray-700">{q[`option${opt}`]}</span>
-                </label>
-              ))}
-            </div>
-          </div>
+            question={q}
+            index={index}
+            onSelect={handleChange}
+            selectedAnswer={answers[q.id]}
+          />
         ))}
 
         <button
@@ -141,6 +128,13 @@ const ExamPage = () => {
           Submit Exam
         </button>
       </div>
+
+      {showWarning && (
+        <WarningModal
+          message={warningMsg}
+          onClose={() => setShowWarning(false)}
+        />
+      )}
     </div>
   );
 };

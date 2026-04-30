@@ -12,7 +12,7 @@ const Exam = sequelize.define("Exam", {
     allowNull: false,
   },
   timeLimit: {
-    type: DataTypes.INTEGER, 
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   isPublished: {

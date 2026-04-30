@@ -1,135 +1,164 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import Navbar from "../components/Navbar";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const [exams, setExams] = useState([]);
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const fetchExams = async () => {
+  const fetchData = async () => {
     try {
-      const res = await API.get("/exams");
-      setExams(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      const [examRes, resultRes] = await Promise.all([
+        API.get("/exams"),
+        API.get("/results"),
+      ]);
 
-  const fetchResults = async () => {
-    try {
-      const res = await API.get("/results");
-      setResults(res.data);
+      setExams(examRes.data);
+      setResults(resultRes.data);
+      console.log(resultRes.data);
     } catch (err) {
+      setError("Failed to load dashboard data");
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchExams();
-    fetchResults();
+    fetchData();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+  const handleTogglePublish = async (exam) => {
+    const action = exam.isPublished ? "unpublish" : "publish";
+
+    if (!window.confirm(`Are you sure you want to ${action} this exam?`))
+      return;
+
+    try {
+      await API.put(`/exams/toggle-publish/${exam.id}`);
+      fetchData();
+    } catch (err) {
+      alert(err.response?.data?.message || "Action failed");
+    }
   };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-blue-50">
-      <div className="flex items-center justify-between px-6 py-4 bg-white shadow-sm border-b">
-        <h2 className="text-2xl font-bold text-gray-800">Admin Dashboard 🧑‍💼</h2>
-
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition"
-        >
-          Logout
-        </button>
-      </div>
+      <Navbar title="Admin Dashboard 🧑‍💼" />
 
       <div className="p-6 max-w-6xl mx-auto space-y-10">
-        <div className="flex justify-end">
+        <div className="flex flex-wrap gap-3 justify-end">
           <button
-            onClick={() => alert("Go to Create Exam Page")}
-            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold shadow-md transition"
+            onClick={() => navigate("/admin/create-exam")}
+            className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold shadow-md"
           >
             + Create Exam
           </button>
+
+          <button
+            onClick={() => navigate("/admin/add-question")}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl"
+          >
+            ❓ Add Question
+          </button>
+
+          <button
+            onClick={() => navigate("/admin/assign-questions")}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl"
+          >
+            🧠 Assign Questions
+          </button>
         </div>
 
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">📚 Exams</h3>
+        {loading && <div className="text-center text-gray-500">Loading...</div>}
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {exams.map((exam) => (
-              <div
-                key={exam.id}
-                className="bg-white border rounded-2xl shadow-sm p-5 hover:shadow-md transition"
-              >
-                <h4 className="text-lg font-semibold text-gray-800">
-                  {exam.title}
-                </h4>
-
-                <p className="text-gray-600 mt-2">
-                  ⏱ Time: {exam.timeLimit} min
-                </p>
-
-                <p className="mt-1">
-                  Status:{" "}
-                  <span
-                    className={
-                      exam.isPublished
-                        ? "text-green-600 font-medium"
-                        : "text-yellow-600 font-medium"
-                    }
-                  >
-                    {exam.isPublished ? "Published" : "Draft"}
-                  </span>
-                </p>
-
-                <button
-                  onClick={() => navigate(`/exam/${exam.id}`)}
-                  className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition"
-                >
-                  View
-                </button>
-              </div>
-            ))}
+        {error && (
+          <div className="bg-red-100 text-red-600 p-3 rounded text-center">
+            {error}
           </div>
-        </div>
+        )}
 
-        <div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            🏆 Leaderboard
-          </h3>
+        {!loading && (
+          <div>
+            <h3 className="text-xl font-semibold mb-4">📚 Exams</h3>
 
-          <div className="space-y-4">
-            {results.map((r, index) => (
-              <div
-                key={r.id}
-                className="bg-white border rounded-2xl shadow-sm p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between hover:shadow-md transition"
-              >
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-800">
-                    #{index + 1} {r.User?.name}
-                  </h4>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {exams.map((exam) => (
+                <div
+                  key={exam.id}
+                  className="bg-white border rounded-2xl shadow-sm p-5 hover:shadow-md"
+                >
+                  <h4 className="text-lg font-semibold">{exam.title}</h4>
 
-                  <p className="text-gray-600">Exam: {r.Exam?.title}</p>
-                </div>
+                  <p className="text-gray-600 mt-2">⏱ {exam.timeLimit} min</p>
 
-                <div className="mt-3 sm:mt-0 text-right">
-                  <p className="text-green-600 font-semibold">
-                    Score: {r.score}
+                  <p className="mt-1">
+                    Status:{" "}
+                    <span
+                      className={
+                        exam.isPublished ? "text-green-600" : "text-yellow-600"
+                      }
+                    >
+                      {exam.isPublished ? "Published" : "Draft"}
+                    </span>
                   </p>
 
-                  <p className="text-gray-500 text-sm">⏱ {r.timeTaken} sec</p>
+                  <div className="mt-4 space-y-2">
+                    <button
+                      onClick={() => navigate("/admin/assign-questions")}
+                      className="w-full bg-blue-600 text-white py-2 rounded"
+                    >
+                      + Add Questions
+                    </button>
+
+                    <button
+                      onClick={() => handleTogglePublish(exam)}
+                      className={`w-full py-2 rounded font-medium ${
+                        exam.isPublished
+                          ? "bg-red-500 hover:bg-red-600 text-white"
+                          : "bg-green-600 hover:bg-green-700 text-white"
+                      }`}
+                    >
+                      {exam.isPublished ? "Unpublish Exam" : "Publish Exam"}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {!loading && (
+          <div>
+            <h3 className="text-xl font-semibold mb-4">🏆 Leaderboard</h3>
+
+            <div className="space-y-4">
+              {results.map((r, index) => (
+                <div
+                  key={r.id}
+                  className="bg-white border rounded-2xl shadow-sm p-4 flex justify-between"
+                >
+                  <div>
+                    <h4 className="font-semibold">
+                      #{index + 1} {r.User?.name}
+                    </h4>
+                    <p className="text-gray-600">{r.Exam?.title}</p>
+                  </div>
+
+                  <div className="text-right">
+                    <p className="text-green-600 font-semibold">{r.score}</p>
+                    <p className="text-gray-500 text-sm">⏱ {r.timeTaken}s</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -2,9 +2,10 @@ import express from "express";
 import {
   createExam,
   assignQuestions,
-  publishExam,
   getPublishedExams,
   getExamQuestions,
+  togglePublishExam,
+  getAllExams,
 } from "../controllers/examController.js";
 
 import { protect } from "../middleware/auth.js";
@@ -14,9 +15,10 @@ const router = express.Router();
 
 router.post("/", protect, isAdmin, createExam);
 router.post("/assign", protect, isAdmin, assignQuestions);
-router.put("/publish", protect, isAdmin, publishExam);
+router.put("/toggle-publish/:id", protect, isAdmin, togglePublishExam);
+router.get("/", protect, isAdmin, getAllExams);
 
-router.get("/", protect, getPublishedExams);
+router.get("/published", protect, getPublishedExams);
 router.get("/:examId", protect, getExamQuestions);
 
 export default router;

@@ -9,11 +9,12 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    role: "student",
+    role: "student", // ✅ always default student
   });
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -25,18 +26,22 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
     try {
       const res = await API.post("/auth/register", form);
 
       setSuccess(res.data.message);
-      setError("");
 
       setTimeout(() => {
         navigate("/");
       }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
-      setSuccess("");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,8 +73,9 @@ const Register = () => {
             <input
               type="text"
               name="name"
-              placeholder="Enter your name"
+              value={form.name} // ✅ controlled
               onChange={handleChange}
+              placeholder="Enter your name"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
@@ -80,8 +86,9 @@ const Register = () => {
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
+              value={form.email} // ✅ controlled
               onChange={handleChange}
+              placeholder="Enter your email"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
@@ -92,43 +99,42 @@ const Register = () => {
             <input
               type="password"
               name="password"
-              placeholder="Enter your password"
+              value={form.password} // ✅ controlled
               onChange={handleChange}
+              placeholder="Enter your password"
               className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
 
-          <div>
-            <label className="text-sm text-gray-600">Role</label>
-            <select
-              name="role"
-              value={form.role}
-              onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <option value="student">Student</option>
-              <option value="admin">Admin</option>
-            </select>
+          <div className="text-sm text-gray-500 text-center">
+            You will be registered as a student
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition duration-200"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
         <p className="text-sm text-center text-gray-600 mt-5">
           Already have an account?{" "}
           <span
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/login")}
             className="text-blue-600 font-medium cursor-pointer hover:underline"
           >
             Login
           </span>
         </p>
+        <button
+          onClick={() => navigate("/admin")}
+          className="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-medium transition"
+        >
+          Back to Dashboard
+        </button>
       </div>
     </div>
   );

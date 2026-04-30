@@ -11,6 +11,7 @@ const Login = () => {
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({
@@ -22,10 +23,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
+    setError("");
+
     try {
       const res = await API.post("/auth/login", form);
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       const user = res.data.user;
 
@@ -36,6 +41,8 @@ const Login = () => {
       }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,9 +87,10 @@ const Login = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition duration-200"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
@@ -95,6 +103,12 @@ const Login = () => {
             Register
           </span>
         </p>
+      <button
+        onClick={() => navigate("/admin")}
+        className="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg font-medium transition"
+      >
+        Back to Dashboard
+      </button>
       </div>
     </div>
   );

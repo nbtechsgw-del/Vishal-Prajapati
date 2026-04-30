@@ -1,4 +1,4 @@
-import { Result, Question, Exam } from "../models/index.js";
+import { Result, Question, Exam, User } from "../models/index.js";
 
 export const submitExam = async (req, res) => {
   try {
@@ -67,6 +67,10 @@ export const getAllResults = async (req, res) => {
         {
           model: Exam,
           attributes: ["title"],
+        },
+        {
+          model: User,
+          attributes: ["name"],
         },
       ],
       order: [
