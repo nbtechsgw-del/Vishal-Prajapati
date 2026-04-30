@@ -72,7 +72,18 @@ export default function EditProperty() {
           />
 
           {form.image && (
-            <img src={form.image} alt="preview" className="image-preview" />
+            <img
+              src={form.image}
+              alt="preview"
+              className="image-preview"
+              style={{
+                width: "100%",
+                borderRadius: "10px",
+                marginBottom: "10px",
+                height: "200px",
+                objectFit: "cover",
+              }}
+            />
           )}
 
           <input

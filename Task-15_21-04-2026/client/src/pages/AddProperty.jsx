@@ -19,7 +19,7 @@ export default function AddProperty() {
   const handleSubmit = async () => {
     try {
       await API.post("/properties", form);
-      alert("Property added ✅");
+      alert("Property added");
       navigate("/agent");
     } catch (err) {
       alert("Error adding property", err);
